@@ -1,6 +1,6 @@
 <?php
 
-if(isset($_POST["id"]) && !empty($_POST["id"])){
+if (!empty($_POST["id"])) {
     include "DBconfig.php";
 
 // Create connection
@@ -20,7 +20,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         $object = new stdClass();
         $object->nom = $row["nom"];
         $object->addEdit = $row["id"];
-       
+
         echo json_encode($object);
 
     } else {
