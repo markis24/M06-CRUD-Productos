@@ -98,13 +98,15 @@ $conn->close();
                     document.getElementById("addEdit").value = data.addEdit;
                 })
                 .catch((error) => {
+                    console.error('Error al editar un producto:', error);
                 });
 
         })
     })
-    let btnDelete =document.querySelectorAll(".btnDelete");
-    btnDelete.forEach(el =>{
+    let btnDelete = document.querySelectorAll(".btnDelete");
+    btnDelete.forEach(el => {
         el.addEventListener("click", function () {
+
             let formData = new FormData();
             formData.append("id", this.getAttribute("idProd"));
 
@@ -112,8 +114,19 @@ $conn->close();
                 method: 'POST',
                 body: formData
             }
-        }
+
+            fetch("deleteProducte.php", options)
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                    console.error('Error al eliminar el producto:', error);
+                });
         })
+    });
+
+
 </script>
 </body>
 </html>

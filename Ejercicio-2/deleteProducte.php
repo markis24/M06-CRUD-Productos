@@ -1,34 +1,31 @@
 <?php
-
-if(isset($_POST["id"]) && !empty($_POST["id"])){
+if(!empty($_POST["id"])){
     include "DBconfig.php";
 
-// Create connection
+    // Create connection
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSW, DB_NAME, DB_PORT);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM products WHERE id=" . $_POST["id"];
+    $id = $_POST["id"];
 
-    $result = $conn->query($sql);
+    // Verificar si el producto existe
+    $sql_check = "SELECT * FROM products WHERE id = $id";
+    $result_check = $conn->query($sql_check);
 
-    $array = array();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $object = new stdClass();
-        $object->nom = $row["nom"];
-        $object->addEdit = $row["id"];
-
-        echo json_encode($object);
-
+    if ($result_check->num_rows > 0) {
+        // Borrar el producto
+        $sql_delete = "DELETE FROM products WHERE id = $id";
+        if ($conn->query($sql_delete) === TRUE) {
+            echo "Producto borrado exitosamente";
+        } else {
+            echo "Error al borrar el producto: " . $conn->error;
+        }
     } else {
-        echo "0 results";
+        echo "El producto no existe";
     }
 
     $conn->close();
 }
-
-
 ?>
