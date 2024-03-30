@@ -41,14 +41,14 @@ include "DBconfig.php";
 
 ?>
 <body class="container mt-5 w-80">
-    <h2 class="mb-3">Formulari</h2>
-    <form action="AddEdit.php" method="POST">
-        <div class="form-group mb-2">
-            <input type="text" class="form-control" id="nomProducte" name="nomProducte" placeholder="Nom" value="<?php echo $nom;?>">
-        </div>
-        
-        <input type="hidden" name="addEdit" value="<?php echo $addEdit;?>"/>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form> 
+<h2 class="mb-3">Formulari</h2>
+<form action="AddEdit.php" method="POST">
+    <div class="form-group mb-2">
+        <input type="text" class="form-control" id="nomProducte" name="nomProducte" placeholder="Nom" value="<?php echo isset($nom) ? $nom : ''; ?>">
+    </div>
+
+    <input type="hidden" name="addEdit" value="<?php echo isset($addEdit) ? $addEdit : ''; ?>"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 </body>
 </html>
